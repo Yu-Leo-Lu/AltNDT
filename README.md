@@ -6,5 +6,3 @@ Run the code under `./AltNDT` folder in python 3
 
 ## Example
 `tf_MNIST`, `tf_Reuters`, `tf_SVHN`, `tf_CIFAR10`
-
-hi there
