@@ -1,3 +1,4 @@
+# %%
 import numpy as np
 from sklearn import tree
 from sklearn import preprocessing
@@ -5,7 +6,7 @@ from framework import ndtFunc
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 
-
+# %%
 # some common activation functions
 def r(x):
     return tf.keras.activations.relu(x)
@@ -22,7 +23,7 @@ def s(x):
 def t(x):
     return (tf.tanh(x) + 1) * 0.5
 
-
+# %%
 class DataProcess(object):
     def __init__(self, X, Y):
         self.X = X
@@ -101,7 +102,7 @@ class DataProcess(object):
 
         return self.X[select_inds, :], self.Y[select_inds, :]
 
-
+# %%
 class TuningPara(object):
     def __init__(self):
         self.activation1 = s
@@ -125,7 +126,7 @@ class NeuralDecisionTreeRegression:
     def treeConfig(self, X_train, Y_train):
         X_train_scaled = preprocessing.scale(X_train)
         Y_train_scaled = Y_train
-        # -------------------------------------------------------------------------------
+
         regressor = tree.DecisionTreeRegressor(max_depth=self.tree_max_depth)
         regressor = regressor.fit(X_train_scaled, Y_train_scaled)
         feature = regressor.tree_.feature
@@ -169,7 +170,6 @@ class NeuralDecisionTreeRegression:
         b2 = tf.Variable(b2, name='b2')
         self.Wb = [W0, b0, W1, b1, W2, b2]
 
-        # -------------------------------------------------------------------------------
         optimizer = tf.keras.optimizers.SGD(learning_rate=self.learning_rate)
         num_batches = int(n / self.batch_size)
 
@@ -236,7 +236,7 @@ class NeuralDecisionTreeClassification(TuningPara):
         # Y_train = Y_train[0:int(init_frac * Y_train.shape[0]), :]
         if init_frac < 1:
             X_train, _, Y_train, _ = train_test_split(X_train, Y_train, test_size=1-init_frac)
-        # -------------------------------------------------------------------------------
+
         classifier = tree.DecisionTreeClassifier(max_depth=self.tree_max_depth)
         classifier = classifier.fit(X_train, Y_train)
         feature = classifier.tree_.feature
@@ -314,7 +314,7 @@ class NeuralDecisionTreeClassification(TuningPara):
         X_test = self.d_test.X
         tY_oneHot = self.d_test.Y_oneHot
         n = X_train.shape[0]  # num of obvs
-        # -------------------------------------------------------------------------------
+
         optimizer = tf.keras.optimizers.SGD(learning_rate=self.learning_rate)
         num_batches = int(n / self.batch_size)
 

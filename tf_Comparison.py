@@ -10,24 +10,24 @@ import tensorflow as tf
 # X_test = X_test.reshape(X_test.shape[0], X_test.shape[1] * X_test.shape[2])
 # Y_train = Y_train.reshape(Y_train.shape[0], 1)
 # Y_test = Y_test.reshape(Y_test.shape[0], 1)
-# ---------------------------------------------------------------------------------
+# %%
 # dataName = 'Reuters'
 # max_word = 2000
 # (X_train, Y_train), (X_test, Y_test) = tf.keras.datasets.reuters.load_data(num_words=max_word)
 # word_idx = tf.keras.datasets.reuters.get_word_index()
 # idx_to_word = dict([(value, key) for (key, value) in word_idx.items()])
 # print(' '.join([idx_to_word.get(x - 3, '?') for x in X_train[0]]))
-# ---------------------------------------------------------------------------------
+# %%
 dataName = 'CIFAR10'
 (X_train, Y_train), (X_test, Y_test) = tf.keras.datasets.cifar10.load_data()
 # plt.imshow(X_train[1658])
 X_train = X_train.reshape(50000, 32 * 32 * 3)  # 50000 training samples, each sample is 32x32x3 RGB image
 X_test = X_test.reshape(10000, 32 * 32 * 3)  # 10000 training samples
-# ---------------------------------------------------------------------------------
+# %%
 
 X_train_selected, Y_train_selected = X_train, Y_train  # multi-classification
 X_test_selected, Y_test_selected = X_test, Y_test
-# ---------------------------------------------------------------------------------
+# %%
 d_train = tfNDT.DataProcess(X_train_selected, Y_train_selected)
 d_test = tfNDT.DataProcess(X_test_selected, Y_test_selected)
 
@@ -40,7 +40,7 @@ d_test.preProcessData()
 # d_test.sequenceToMatrix(dimension=max_word)
 # d_test.oneHotLabel()
 
-# ---------------------------------------------------------------------------------
+# %%
 
 def ndtComp(i):
     plt.figure(i)
@@ -73,7 +73,7 @@ def ndtComp(i):
     plt.savefig('Improved-NDT/main/figure/' + dataName + '_testing_ndtComp.png', format='png', dpi=100)
 
 
-# ---------------------------------------------------------------------------------
+# %%
 
 ndt = tfNDT.NeuralDecisionTreeClassification()
 ndt.d_train, ndt.d_test = d_train, d_test
@@ -92,7 +92,7 @@ ndt.batch_size = 1000
 ndt, ndt_record = ndt.train()
 ndt_avgR = ndt_record
 
-# ---------------------------------------------------------------------------------
+# %%
 
 ndtP = tfNDT.NeuralDecisionTreeClassification()
 ndtP.d_train, ndtP.d_test = d_train, d_test
@@ -106,7 +106,7 @@ ndtP.learning_rate = 25
 ndtP.batch_size = 1000
 ndtP, ndtP_record = ndtP.train()
 
-# ---------------------------------------------------------------------------------
+# %%
 
 ndtP10 = tfNDT.NeuralDecisionTreeClassification()
 ndtP10.d_train, ndtP10.d_test = d_train, d_test
@@ -120,7 +120,7 @@ ndtP10.learning_rate = 25
 ndtP10.batch_size = 1000
 ndtP10, ndtP10_record = ndtP10.train()
 
-# ---------------------------------------------------------------------------------
+# %%
 
 ndt8 = tfNDT.NeuralDecisionTreeClassification()
 ndt8.tree_max_depth = 8
@@ -135,7 +135,7 @@ ndt8.learning_rate = 25
 ndt8.batch_size = 1000
 ndt8, ndt8_record = ndt8.train()
 
-# ---------------------------------------------------------------------------------
+# %%
 
 ndt6 = tfNDT.NeuralDecisionTreeClassification()
 ndt6.tree_max_depth = 6
@@ -150,7 +150,7 @@ ndt6.learning_rate = 25
 ndt6.batch_size = 1000
 ndt6, ndt6_record = ndt6.train()
 
-# ---------------------------------------------------------------------------------
+# %%
 
 ndt9 = tfNDT.NeuralDecisionTreeClassification()
 ndt9.tree_max_depth = 9

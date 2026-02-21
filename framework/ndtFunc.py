@@ -107,7 +107,7 @@ def genWeights2_clf(feature, value):
     return W, b
 
 
-# --------------------------------------------------------------
+# %%
 # store training record
 class TrainingRecord:
     def __init__(self):
@@ -121,7 +121,7 @@ class TrainingRecord:
         self.Gradients = None
 
 
-# --------------------------------------------------------------
+# %%
 # select label for binary classification
 def select_labels(X, Y, labels):
     idx = np.where(Y == labels[0])[0]
@@ -136,7 +136,7 @@ def select_labels(X, Y, labels):
     return X_selected, Y_selected
 
 
-# --------------------------------------------------------------
+# %%
 def each_label(Y, label):
     binaryY = Y
     if label != 0:
@@ -149,7 +149,7 @@ def each_label(Y, label):
     return binaryY
 
 
-# --------------------------------------------------------------
+# %%
 def statModel(mdl_records):
     """
     :param mdl_records: list of iid model records
@@ -177,9 +177,9 @@ def statModel(mdl_records):
     return avg_record
 
 
-# --------------------------------------------------------------
-# --------------------------------------------------------------
-# --------------------------------------------------------------
+# %%
+# %%
+# %%
 
 # funcs on prev version of ndt
 def sd(sY):
@@ -238,7 +238,7 @@ def rightChild(feature, j):
     return j_right, feature_count
 
 
-# ---------------------------------------------------------------------------------
+# %%-------------------
 def DataToHyp(X, clf):
     # X:     N x P, N data point, P attributes
     # clf:   tree classifier

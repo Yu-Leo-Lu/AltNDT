@@ -1,30 +1,38 @@
+# %%
 from framework import tfNDT
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from framework.ndtFunc import statModel
 
+# %%
 dataName = 'CIFAR10'
 (X_train, Y_train), (X_test, Y_test) = tf.keras.datasets.cifar10.load_data()
-# plt.imshow(X_train[1658])
+# show 3 images of X_train using plt.imshow
+# print Y_train corresponding to the 3 images
+plt.figure(figsize=(10, 10))
+for i in range(3):
+    plt.subplot(1, 3, i + 1)
+    plt.imshow(X_train[i])
+    print(Y_train[i])
+plt.show()
+
 X_train = X_train.reshape(50000, 32 * 32 * 3)  # 50000 training samples, each sample is 32x32x3 RGB image
 X_test = X_test.reshape(10000, 32 * 32 * 3)  # 10000 training samples
 
-# ---------------------------------------------------------------------------------
+# %%
 
 # labels = [0, 5]  # binary classification between two selected label
 # X_train_selected, Y_train_selected = tfNDT.ndtFunc.select_labels(X_train, Y_train, labels)
 # X_test_selected, Y_test_selected = tfNDT.ndtFunc.select_labels(X_test, Y_test, labels)
 # plt.imshow(X_test_selected[1656, :].reshape([28, 28]), cmap='Greys')
-# ---------------------------------------------------------------------------------
 # label = 0  # binary classification of selected label vs others
 # X_train_selected, Y_train_selected = X_train, tfNDT.ndtFunc.each_label(Y_train, label)
 # X_test_selected, Y_test_selected = X_test, tfNDT.ndtFunc.each_label(Y_test, label)
-# ---------------------------------------------------------------------------------
-
+# %%
 X_train_selected, Y_train_selected = X_train, Y_train  # multi-classification
 X_test_selected, Y_test_selected = X_test, Y_test
-# ---------------------------------------------------------------------------------
+# %%
 d_train = tfNDT.DataProcess(X_train_selected, Y_train_selected)
 d_test = tfNDT.DataProcess(X_test_selected, Y_test_selected)
 d_train.preProcessData()
@@ -32,8 +40,7 @@ d_test.preProcessData()
 
 runs = 10
 
-
-# ---------------------------------------------------------------------------------
+# %%
 def mainPlot(i):
     plt.figure(i)
     plt.plot(ndt_record.epoch_range, E_tree_test * np.ones((ndt.epochs + 1, 1)), color='k', label='DT')
@@ -98,7 +105,7 @@ def trainPlot(i):
     plt.show()
 
 
-# ---------------------------------------------------------------------------------
+# %%
 
 ndt = tfNDT.NeuralDecisionTreeClassification()
 ndt.d_train, ndt.d_test = d_train, d_test
@@ -111,13 +118,12 @@ y_pred_ = y_pred_.reshape((len(y_pred_), 1))
 E_tree_train = np.mean(np.not_equal(y_pred_, ndt.d_train.Y))
 
 ndt.activation1 = tfNDT.r1
-ndt.learning_rate = 50
+ndt.learning_rate = 0.5
 ndt.batch_size = 1000
 
 ndt, ndt_record = ndt.train()
 ndt_avgR = ndt_record
-
-# ---------------------------------------------------------------------------------
+# %%
 
 # ndtP = tfNDT.NeuralDecisionTreeClassification()
 # ndtP.d_train, ndtP.d_test = d_train, d_test
@@ -133,7 +139,7 @@ ndt_avgR = ndt_record
 # ndtP.learning_rate = 50
 # ndtP, ndtP_record = ndtP.train()
 
-# ---------------------------------------------------------------------------------
+# %%
 
 nn = tfNDT.NeuralDecisionTreeClassification()
 nn.d_train, nn.d_test = d_train, d_test
@@ -149,7 +155,7 @@ for _ in range(runs):
     nn_records.append(nn_record)
 nn_avgR = statModel(nn_records)
 
-# ---------------------------------------------------------------------------------
+# %%
 
 nnD = tfNDT.NeuralDecisionTreeClassification()
 nnD.d_train, nnD.d_test = d_train, d_test
@@ -165,7 +171,7 @@ for _ in range(runs):
     nnD_records.append(nnD_record)
 nnD_avgR = statModel(nnD_records)
 
-# ---------------------------------------------------------------------------------
+# %%
 
 nnH = tfNDT.NeuralDecisionTreeClassification()
 nnH.d_train, nnH.d_test = d_train, d_test
@@ -181,7 +187,7 @@ for _ in range(runs):
     nnH_records.append(nnH_record)
 nnH_avgR = statModel(nnH_records)
 
-# ---------------------------------------------------------------------------------
+# %%
 
 num_neurons = 2 * ndt.Wb[0].shape[1] + 1
 nn1 = tfNDT.OneLayersNetworkClassification(num_neurons=num_neurons)
@@ -197,7 +203,7 @@ for _ in range(runs):
     nn1_records.append(nn1_record)
 nn1_avgR = statModel(nn1_records)
 
-# ---------------------------------------------------------------------------------
+# %%
 
 nn3 = tfNDT.ThreeLayersNetworkClassification(
     num_neurons_list=[int(num_neurons / 3), int(num_neurons / 3), num_neurons - 2 * int(num_neurons / 3)])
@@ -213,12 +219,12 @@ for _ in range(runs):
     nn3_records.append(nn3_record)
 nn3_avgR = statModel(nn3_records)
 
-# ---------------------------------------------------------------------------------
+# %%
 # mainPlot(21)
 # trainPlot(22)
 avgPlot(23)
 
-# ---------------------------------------------------------------------------------
+# %%
 
 # tY_pred_confidence = ndt_record.tY_pred_confidence[-1]
 # tY_pred_confidence = np.reshape(tY_pred_confidence, (len(tY_pred_confidence), 1))
@@ -234,3 +240,5 @@ avgPlot(23)
 # b0 = b0.numpy()
 # b1 = b1.numpy()
 # b2 = b2.numpy()
+
+# %%
