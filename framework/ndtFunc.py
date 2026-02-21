@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 25 21:48:47 2020
-
-@author: leona
-"""
+# %%
 import numpy as np
 
 
+# %%
 def findSubtree(feature, cLeft, cRight, j):
     # Assume feature[j] is decision node
     # cLeft[j] is a integer such that feature[cLeft[j]] is the left child of feature[j]
@@ -177,10 +173,9 @@ def statModel(mdl_records):
     return avg_record
 
 
-# %%
-# %%
-# %%
 
+
+# %%
 # funcs on prev version of ndt
 def sd(sY):
     # input sY:   n by 1 categorical vector, with c classes: 0,1,2,...,c-1

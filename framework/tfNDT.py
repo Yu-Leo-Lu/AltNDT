@@ -23,7 +23,8 @@ def s(x):
 def t(x):
     return (tf.tanh(x) + 1) * 0.5
 
-# %%
+# %% DataProcess class, scaling and one-hot encoding
+
 class DataProcess(object):
     def __init__(self, X, Y):
         self.X = X
@@ -102,7 +103,7 @@ class DataProcess(object):
 
         return self.X[select_inds, :], self.Y[select_inds, :]
 
-# %%
+# %% TuningPara class, tuning parameters for the model
 class TuningPara(object):
     def __init__(self):
         self.activation1 = s
